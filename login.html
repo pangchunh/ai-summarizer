@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Registration</title>
+</head>
+<body>
+
+<div>
+    <form id="loginForm">
+        <h2>Login</h2>
+        <label for="loginUsername">Username:</label>
+        <input type="text" id="loginUsername" name="loginUsername" required>
+
+        <label for="loginPassword">Password:</label>
+        <input type="password" id="loginPassword" name="loginPassword" required>
+
+        <button type="button" onclick="login()">Login</button>
+    </form>
+
+    <form id="registrationForm" style="margin-top: 20px;">
+        <h2>Register</h2>
+        <label for="registerUsername">Username:</label>
+        <input type="text" id="registerUsername" name="registerUsername" required>
+
+        <label for="registerPassword">Password:</label>
+        <input type="password" id="registerPassword" name="registerPassword" required>
+
+        <button type="button" onclick="register()">Register</button>
+    </form>
+</div>
+
+<script>
+    function login() {
+        var username = document.getElementById('loginUsername').value;
+        var password = document.getElementById('loginPassword').value;
+
+        // Check DB for user
+        
+    }
+
+    function register() {
+        var username = document.getElementById('registerUsername').value;
+        var password = document.getElementById('registerPassword').value;
+
+        // Add user if not exists in DB
+    }
+</script>
+
+</body>
+</html>
