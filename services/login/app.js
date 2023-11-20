@@ -9,9 +9,6 @@ const jwt = require('jsonwebtoken')
 const path = require('path');
 const cookieParser = require('cookie-parser')
 
-
-const host = process.env.HOST || 'http://localhost:3000'
-
 app.use(express.json(), cors(), cookieParser())
 app.use(express.static(path.join(__dirname, '../../frontend/public')))
 
@@ -19,7 +16,7 @@ app.use(express.static(path.join(__dirname, '../../frontend/public')))
 //middle for authentication
 const authenticateAPI = async (req, res, next) => {
   const authHeader = req.headers.authorization
-  
+
   //check if cookie token exists
 
   if (!authHeader && !req.cookies.token) {
@@ -97,8 +94,6 @@ app.post("/api/v1/login", async (req, res) => {
     //create token with user id and send back to user
     const token = jwt.sign({ uid: user.uid }, process.env.JWT_SECRET)
 
-
-
     res.status = 200
     res.json({ "message": "User logged in", user, token })
 
@@ -131,11 +126,6 @@ app.post("/api/v1/create-user", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`App listening at ${PORT}`)
 })
-
-
-
-//sql query to create user db with uid, username, password, email
-
 
 
 

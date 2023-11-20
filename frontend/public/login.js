@@ -1,4 +1,5 @@
-const host = 'http://localhost:3000'
+const host = 'https://isa-ai-summarizer.onrender.com'
+// const host = 'http://localhost:3000'
 
 let authToken = null; // Declare a global variable to store the token
 
@@ -84,7 +85,7 @@ async function register() {
   const password = document.getElementById('registerPassword').value;
 
   // Add user if not exists in DB
-  const result = await fetch('http://localhost:3000/api/v1/create-user', {
+  const result = await fetch(`${host}/api/v1/create-user`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
