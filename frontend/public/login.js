@@ -45,8 +45,6 @@ async function login() {
     authToken = data.token;
     document.cookie = `token=${data.token}`
     //redirect to main.html by calling get request from server
-    const headers = new Headers();
-    headers.append('Authorization', `Bearer ${authToken}`);
     window.location.href = `${host}/mainpage`
 
   } else{
@@ -54,30 +52,6 @@ async function login() {
   }
   
 }
-
-async function goToMainPage() {
-  const cookies = document.cookie.split(';'); 
-  const tokenCookie = cookies.find(cookie => cookie.trim().startsWith('token='));
-
-  
-  if (!tokenCookie) {
-    console.error('JWT token not found');
-    return;
-  }
-  const token = tokenCookie.split('=')[1];
-  console.log(`token: ${token}`)
-  
-  const result = await fetch(`${host}/mainpage`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'text/html',
-      'Authorization': `Bearer ${token}`
-    }
-  })
-}
-
-
-
 
 async function register() {
   const username = document.getElementById('registerUserName').value;
@@ -97,8 +71,7 @@ async function register() {
 
   //if success, redirect user and set cookie
   if (data.token){
-    document.cookie = `token=${data.token}`
-    window.location.href = '/main.html'
+    window.location.href = `${host}/mainpage`
   } else{
     document.getElementById('error').innerText = data.message
   }
