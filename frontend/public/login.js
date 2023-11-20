@@ -43,7 +43,7 @@ async function login() {
   //if success, redirect user and set cookie
   if (data.token){
     document.cookie = `token=${data.token}`
-    window.location.href = `${host}/mainpage`
+    window.location.href = `${host}/admin`
 
   } else{
     document.getElementById('error').innerText = data.message

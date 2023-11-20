@@ -43,6 +43,27 @@ const authenticateAPI = async (req, res, next) => {
   }
 }
 
+const authenicateAdmin = async (req, res, next) => {
+  const { token } = req.cookies
+  if (!token) {
+    return res.redirect('/')
+  }
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET)
+    const { uid } = decoded
+    const user = await db.oneOrNone(`select * from "user" where uid = '${uid}'`)
+    if (!user) {
+      return res.redirect('/')
+    }
+    if (user.role !== 'admin') {
+      return res.redirect('/mainpage')
+    }
+    next()
+  } catch (error) {
+    return res.redirect('/')
+  }
+}
+
 
 const authenticatePage = async (req, res, next) => {
   const { token } = req.cookies
@@ -72,6 +93,11 @@ app.get("/mainpage", authenticatePage, (req, res) => {
 //create route to display login page
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../../frontend/public/login.html"))
+})
+
+//create route to display admin page using authenticateAdmin middleware
+app.get("/admin", authenicateAdmin, (req, res) => {
+  res.sendFile(path.join(__dirname, "../../frontend/public/admin.html"))
 })
 
 
@@ -133,6 +159,3 @@ app.get("/api/v1/signout", (req, res) => {
 app.listen(PORT, () => {
   console.log(`App listening at ${PORT}`)
 })
-
-
-
