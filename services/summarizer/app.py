@@ -7,11 +7,7 @@ app = Flask(__name__)
 
 CORS(app)
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
-    return open('index.html').read()
-
-@app.route('/api', methods=['GET', 'POST'])  # Allow both GET and POST requests
+@app.route('/api/v1/summarize', methods=['GET', 'POST'])  # Allow both GET and POST requests
 def analyse():
     if request.method == 'POST':
         data = request.get_json()
