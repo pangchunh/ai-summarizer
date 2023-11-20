@@ -43,7 +43,6 @@ async function login() {
   //if success, redirect user and set cookie
   if (data.token){
     document.cookie = `token=${data.token}`
-    //redirect to main.html by calling get request from server
     window.location.href = `${host}/mainpage`
 
   } else{
@@ -69,8 +68,9 @@ async function register() {
   const data = await result.json()
 
   //if success, redirect user and set cookie
-  if (data.user){
-    window.location.href = `${host}/`
+  if (data.token){
+    document.cookie = `token=${data.token}`
+    window.location.href = `${host}/mainpage`
   } else{
     document.getElementById('error').innerText = data.message
   }

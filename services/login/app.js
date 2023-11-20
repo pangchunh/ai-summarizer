@@ -114,8 +114,10 @@ app.post("/api/v1/create-user", async (req, res) => {
       return res.json({ "message": "User already exists, please retry" })
     }
     const newUser = await db.one(`insert into "user" (username, email, password) values ('${username}', '${email}', '${hashedPassword}') returning *`)
+    const token = jwt.sign({ uid: user.uid }, process.env.JWT_SECRET)
+    
     res.status = 201
-    res.json({ "message": "User created", newUser })
+    res.json({ "message": "User created", newUser, token })
   } catch (error) {
     res.send(error)
   }
