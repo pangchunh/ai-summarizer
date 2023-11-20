@@ -16,7 +16,6 @@ app.use(express.static(path.join(__dirname, '../../frontend/public')))
 //middle for authentication
 const authenticateAPI = async (req, res, next) => {
   const authHeader = req.headers.authorization
-
   //check if cookie token exists
 
   if (!authHeader && !req.cookies.token) {
@@ -49,18 +48,18 @@ const authenticatePage = async (req, res, next) => {
   const { token } = req.cookies
   //if no token, redirect to login page
   if (!token) {
-    res.redirect('/')
+    return res.redirect('/')
   }
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
     const { uid } = decoded
     const user = await db.oneOrNone(`select * from "user" where uid = '${uid}'`)
     if (!user) {
-      res.redirect('/')
+      return res.redirect('/')
     }
     next()
   } catch (error) {
-    res.redirect('/')
+    return res.redirect('/')
   }
 }
 
@@ -122,6 +121,13 @@ app.post("/api/v1/create-user", async (req, res) => {
   }
 
 })
+
+//create route to signout
+app.get("/api/v1/signout", (req, res) => {
+  res.clearCookie('token')
+  res.redirect('/')
+})
+
 
 app.listen(PORT, () => {
   console.log(`App listening at ${PORT}`)

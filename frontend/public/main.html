@@ -1,39 +1,40 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Text Analyzer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h1>Text Analyzer</h1>
-    <p>Enter a paragraph to analyze:</p>
-    <textarea id="inputText" rows="5" cols="50"></textarea><br>
-    <button id="analyzeButton">Analyze</button><br><br>
-    <p>Summary of the text</p>
-    <div id="labelResult">
+
+<body class="h-full">
+    <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+        <h1>Text Analyzer</h1>
+
+        <div class="mb-6">
+            <label for="large-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter a
+                paragraph to analyze:</label>
+            <input type="text" id="inputText"
+                class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        </div>
+
+        <button id="analyzeButton"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Analyze</button><br><br>
+        <div style="display: none;">
+            <p>Summary of the text</p>
+            <div id="labelResult">
+            </div>
+        </div>
+        <br><br><br>
+
+    </div>
+    <div class="flex justify-center items-end pb-8">
+        <button id="logout"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+            Logout
+        </button>
     </div>
 
-    <script>
-        const analyzeButton = document.getElementById('analyzeButton');
-        const inputText = document.getElementById('inputText');
-        const result = document.getElementById('labelResult');
-
-        analyzeButton.addEventListener('click', async () => {
-    const paragraph = inputText.value;
-    if (paragraph) {
-        const body = {"paragraph": paragraph}
-        
-        // Send a POST request with the text as a query parameter
-        const res = await fetch(`http://127.0.0.1:5000/api`, {
-            headers:{"Content-Type": "application/json"},
-            method: "POST",
-            body:JSON.stringify(body)})
-
-        const data = await res.json()
-        result.innerHTML = data.summary
-    } else {
-        result.textContent = 'Please enter a paragraph to analyze.';
-    }
-});
-    </script>
+    <script src="./main.js"></script>
 </body>
+
 </html>
