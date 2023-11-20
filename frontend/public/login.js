@@ -42,7 +42,6 @@ async function login() {
   console.log(`data: ${data.message}, data.token: ${data.token}, data.user: ${data.user}`)
   //if success, redirect user and set cookie
   if (data.token){
-    authToken = data.token;
     document.cookie = `token=${data.token}`
     //redirect to main.html by calling get request from server
     window.location.href = `${host}/mainpage`
@@ -70,8 +69,8 @@ async function register() {
   const data = await result.json()
 
   //if success, redirect user and set cookie
-  if (data.token){
-    window.location.href = `${host}/mainpage`
+  if (data.user){
+    window.location.href = `${host}/`
   } else{
     document.getElementById('error').innerText = data.message
   }
@@ -80,5 +79,5 @@ async function register() {
 
 async function logout() {
   document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
-  window.location.href = '/login.html'
+  window.location.href = `${host}/`
 }
