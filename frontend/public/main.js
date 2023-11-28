@@ -42,6 +42,8 @@ document.getElementById("logout").addEventListener("click", async () => {
 	  }).then(response => {
 		// Check if the response status indicates a successful redirect (e.g., 3xx status code)
 		if (response.redirected) {
+			console.log("redirecting");
+			window.location.href = "/";
 		  // The browser will automatically follow the redirect, so no further action needed
 		} else {
 		  // Handle the response as needed (this block will be executed if there is no redirect)
