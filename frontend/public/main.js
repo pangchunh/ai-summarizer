@@ -35,4 +35,6 @@ document.getElementById("logout").addEventListener("click", async () => {
 	// document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
 	// window.location.href = "/";
 	const res = await fetch(`https://isa-ai-summarizer.onrender.com/api/v1/signout`);
+	const result = await res.json();
+	window.location.href = "/";
 });
