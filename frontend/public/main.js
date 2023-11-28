@@ -34,7 +34,19 @@ analyzeButton.addEventListener("click", async () => {
 document.getElementById("logout").addEventListener("click", async () => {
 	// document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
 	// window.location.href = "/";
-	const res = await fetch(`https://isa-ai-summarizer.onrender.com/api/v1/signout`);
-	const result = await res.json();
-	window.location.href = "/";
+	fetch(`https://isa-ai-summarizer.onrender.com/api/v1/signout`, {
+		method: 'GET',
+		headers: {
+		  'Content-Type': 'application/json',
+		},
+	  }).then(response => {
+		// Check if the response status indicates a successful redirect (e.g., 3xx status code)
+		if (response.redirected) {
+		  // The browser will automatically follow the redirect, so no further action needed
+		} else {
+		  // Handle the response as needed (this block will be executed if there is no redirect)
+		  return response.json();
+		}
+	  })
+	
 });
