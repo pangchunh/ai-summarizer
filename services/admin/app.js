@@ -12,9 +12,24 @@ const { authenicateAdmin } = require('../middleware/authenicate')
 const { countApiCalls } = require('../middleware/countApiCalls')
 const { allowCors } = require('../middleware/cors')
 
+const allowedOrigins = ['http://localhost:3000',
+  'http://localhost:3001',
+  'https://isa-ai-summarizer-admin.onrender.com',
+  'https://isa-ai-summarizer.onrender.com',
+  'https://isa-ai-summarizer-admin.onrender.com/',
+  'https://isa-ai-summarizer.onrender.com/'];
 
-app.use(express.json(), cookieParser())
-app.use(allowCors)
+const corsOptions = {
+  origin: allowedOrigins,
+  credentials: true,
+  optionsSuccessStatus: 204,
+  methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS',]
+}
+
+
+
+app.use(express.json(), cors(corsOptions), cookieParser())
+// app.use(allowCors)
 app.use(express.static(path.join(__dirname, '../../frontend/public')))
 
 //
