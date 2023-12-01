@@ -1,4 +1,4 @@
-export const authenicateAdmin = async (req, res, next) => {
+const authenicateAdmin = async (req, res, next) => {
   const { token } = req.cookies
   if (!token) {
     return res.redirect('/')
@@ -19,7 +19,7 @@ export const authenicateAdmin = async (req, res, next) => {
   }
 }
 
-export const authenticatePage = async (req, res, next) => {
+const authenicatePage = async (req, res, next) => {
   const { token } = req.cookies
   //if no token, redirect to login page
   if (!token) {
@@ -38,7 +38,7 @@ export const authenticatePage = async (req, res, next) => {
   }
 }
 
-export const authenticateAPI = async (req, res, next) => {
+const authenicateAPI = async (req, res, next) => {
   const authHeader = req.headers.authorization
   //check if cookie token exists
 
@@ -66,3 +66,5 @@ export const authenticateAPI = async (req, res, next) => {
     return res.json({ "message": `Invalid token: ${error}` })
   }
 }
+
+module.exports = {authenicateAdmin, authenicatePage, authenicateAPI }; 

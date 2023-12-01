@@ -8,20 +8,20 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const path = require('path');
 const cookieParser = require('cookie-parser')
-const { authenticatePage, authenicateAdmin } = require('../middleware/authenticate')
+const { authenicatePage, authenicateAdmin } = require('../middleware/authenicate')
 
 
 app.use(express.json(), cors(), cookieParser())
 app.use(express.static(path.join(__dirname, '../../frontend/public')))
 
 //create route to display main page using middleware
-app.get("/mainpage", authenticatePage, (req, res) => {
+app.get("/mainpage", authenicatePage, (req, res) => {
   res.sendFile(path.join(__dirname, "../../frontend/public/html/main.html"))
 })
 
 //create route to display login page
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../../frontend/public/login.html"))
+  res.sendFile(path.join(__dirname, "../../frontend/public/html/login.html"))
 })
 
 //create route to display admin page using authenticateAdmin middleware

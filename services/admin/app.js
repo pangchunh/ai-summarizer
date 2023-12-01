@@ -47,3 +47,15 @@ app.listen(PORT, () => {
 }
 );
 
+// async function setDefaultApiCount(){
+//   //go to the 'user' table and grab all the user id, create a new row in the apistat table for each user id and set the count to 0
+//   const users = await db.any(`select uid from "user"`)
+//   users.forEach(async (user) => {
+//     if (user.role === 'admin') return
+//     const { uid } = user
+//     await db.none(`insert into userstat (uid, count) values ('${uid}', 0)`)
+//   })
+// }
+
+// setDefaultApiCount()
+
