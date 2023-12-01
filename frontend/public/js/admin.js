@@ -1,9 +1,10 @@
-// const adminhost = 'http://localhost:3000'
-const adminhost = 'https://isa-ai-summarizer-admin.onrender.com'
+const host = 'https://isa-ai-summarizer.onrender.com'
+
+// const host = 'https://isa-ai-summarizer-admin.onrender.com'
 
 async function fetchApiStat() {
   try {
-    const res = await fetch(`${adminhost}/api/v1/apistat`, {
+    const res = await fetch(`${host}/api/v1/apistat`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -40,7 +41,7 @@ function displayApiStat(data) {
 
 async function fetchUserStat() {
   try {
-    const res = await fetch(`${adminhost}/api/v1/userstat`,
+    const res = await fetch(`${host}/api/v1/userstat`,
       {
         method: 'GET',
         headers: {
@@ -128,7 +129,7 @@ async function editUser(uid, oldUsername, oldEmail, oldMaxCount) {
     alert('Please enter at least one field')
     return
   }
-  const result = await fetch(`${adminhost}/api/v1/update-user`, {
+  const result = await fetch(`${host}/api/v1/update-user`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -145,7 +146,7 @@ async function editUser(uid, oldUsername, oldEmail, oldMaxCount) {
 }
 
 async function deleteUser(uid) {
-  const result = await fetch(`${adminhost}/api/v1/delete-user`, {
+  const result = await fetch(`${host}/api/v1/delete-user`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
