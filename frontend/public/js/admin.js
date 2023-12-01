@@ -1,4 +1,5 @@
-const adminhost = 'http://localhost:3000'
+// const adminhost = 'http://localhost:3000'
+const adminhost = 'https://isa-ai-summarizer-admin.onrender.com'
 
 async function fetchApiStat() {
   const res = await fetch(`${adminhost}/api/v1/apistat`, {

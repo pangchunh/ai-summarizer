@@ -2,8 +2,8 @@ const analyzeButton = document.getElementById("analyzeButton");
 const inputText = document.getElementById("inputText");
 const result = document.getElementById("labelResult");
 const summaryContainer = document.getElementById("summaryContainer");
-// const host = "https://isa-ai-summarizer.onrender.com";
-const host = "http://localhost:3001"
+const host = "https://isa-ai-summarizer.onrender.com";
+// const host = "http://localhost:3001"
 
 analyzeButton.addEventListener("click", async () => {
 	const paragraph = inputText.value;

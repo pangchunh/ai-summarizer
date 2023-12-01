@@ -1,4 +1,4 @@
-const allowedOrigins = ['http://localhost:3001', 'http://example.com', 'http://anotherdomain.com'];
+const allowedOrigins = ['http://localhost:3001', 'https://isa-ai-summarizer-admin.onrender.com', 'https://isa-ai-summarizer.onrender.com'];
 
 const allowCors = (req, res, next) => {
   const origin = req.headers.origin;
