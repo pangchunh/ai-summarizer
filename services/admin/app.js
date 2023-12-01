@@ -19,20 +19,24 @@ const allowedOrigins = ['http://localhost:3000',
   'https://isa-ai-summarizer-admin.onrender.com/',
   'https://isa-ai-summarizer.onrender.com/'];
 
-const corsOptions = {
-  origin: allowedOrigins,
-  credentials: true,
-  optionsSuccessStatus: 204,
-  methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS',]
-}
+// const corsOptions = {
+//   origin: allowedOrigins,
+//   credentials: true,
+//   optionsSuccessStatus: 204,
+//   methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS',]
+// }
 
 
 
-app.use(express.json(), cors(corsOptions), cookieParser())
-// app.use(allowCors)
+app.use(express.json(), cookieParser())
+app.use(allowCors)
 app.use(express.static(path.join(__dirname, '../../frontend/public')))
 
 //
+
+//handle preflight request
+// app.options('*', cors())
+
 
 app.get('/api/v1/apistat', countApiCalls, authenicateAdmin, async (req, res) => {
   //get all api routes stat from the apistat table

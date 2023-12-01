@@ -2,20 +2,28 @@
 const adminhost = 'https://isa-ai-summarizer-admin.onrender.com'
 
 async function fetchApiStat() {
-  const res = await fetch(`${adminhost}/api/v1/apistat`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    credentials: 'include'
-  })
-  const { data } = await res.json()
-  const tableBody = document.getElementById('apiStatTableBody')
-  data.forEach(stat => {
-    const tableRow = displayApiStat(stat)
-    tableBody.appendChild(tableRow)
+  try {
+    const res = await fetch(`${adminhost}/api/v1/apistat`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include'
+    })
+    console.log(JSON.stringify(res))
+
+    const { data } = await res.json()
+
+    const tableBody = document.getElementById('apiStatTableBody')
+    data.forEach(stat => {
+      const tableRow = displayApiStat(stat)
+      tableBody.appendChild(tableRow)
+    }
+    )
+  } catch (err) {
+    console.log(err)
+
   }
-  )
 }
 
 function displayApiStat(data) {
@@ -31,22 +39,30 @@ function displayApiStat(data) {
 }
 
 async function fetchUserStat() {
-  const res = await fetch(`${adminhost}/api/v1/userstat`,
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include'
+  try {
+    const res = await fetch(`${adminhost}/api/v1/userstat`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include'
+      })
+      console.log(JSON.stringify(res))
+    const { users } = await res.json()
+    const tableBody = document.getElementById('userStatTableBody')
+    users.sort((a, b) => { return a.uid - b.uid })
+    users.forEach(user => {
+      const tableRow = displayUserStat(user)
+      tableBody.appendChild(tableRow)
     })
-  const { users } = await res.json()
-  const tableBody = document.getElementById('userStatTableBody')
-  users.sort((a, b) => { return a.uid - b.uid })
-  users.forEach(user => {
-    const tableRow = displayUserStat(user)
-    tableBody.appendChild(tableRow)
-  })
+  } catch (err) {
+    console.log(err)
+  }
 }
+
+
+
 
 function displayUserStat(data) {
   const { username, email, count, max_count, uid } = data
