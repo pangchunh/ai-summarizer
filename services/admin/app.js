@@ -14,11 +14,8 @@ const { allowCors } = require('../middleware/cors')
 
 const allowedOrigins = ['http://localhost:3000',
   'http://localhost:3001',
-  'https://isa-ai-summarizer-admin.onrender.com',
   'https://isa-ai-summarizer.onrender.com',
-  'https://isa-ai-summarizer-admin.onrender.com/',
-  'https://isa-ai-summarizer.onrender.com/'];
-
+]
 // const corsOptions = {
 //   origin: allowedOrigins,
 //   credentials: true,

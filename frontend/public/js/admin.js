@@ -1,7 +1,5 @@
 const host = 'https://isa-ai-summarizer.onrender.com'
 
-// const host = 'https://isa-ai-summarizer-admin.onrender.com'
-
 async function fetchApiStat() {
   try {
     const res = await fetch(`${host}/api/v1/apistat`, {
