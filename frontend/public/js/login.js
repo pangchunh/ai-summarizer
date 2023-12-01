@@ -1,5 +1,5 @@
-const host = 'https://isa-ai-summarizer.onrender.com'
-// const host = 'http://localhost:3000'
+// const host = 'https://isa-ai-summarizer.onrender.com'
+const loginhost = 'http://localhost:3001'
 
 let authToken = null; // Declare a global variable to store the token
 
@@ -29,26 +29,23 @@ document.getElementById('registerLink').addEventListener('click', (e) => {
 async function login() {
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
-  console.log("clicked")
 
-  const result = await fetch(`${host}/api/v1/login`, {
+  const result = await fetch(`${loginhost}/api/v1/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({username, password})
+    body: JSON.stringify({ username, password })
   })
   const data = await result.json()
-  console.log(`data: ${data.message}, data.token: ${data.token}, data.user: ${data.user}`)
   //if success, redirect user and set cookie
-  if (data.token){
-    document.cookie = `token=${data.token}`
-    window.location.href = `${host}/admin`
+  if (data.message === 'Login successful') {
+    window.location.href = `${loginhost}/admin`
 
-  } else{
+  } else {
     document.getElementById('error').innerText = data.message
   }
-  
+
 }
 
 async function register() {
@@ -57,27 +54,25 @@ async function register() {
   const password = document.getElementById('registerPassword').value;
 
   // Add user if not exists in DB
-  const result = await fetch(`${host}/api/v1/create-user`, {
+  const result = await fetch(`${loginhost}/api/v1/create-user`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({username, email, password})
+    body: JSON.stringify({ username, email, password })
   })
 
   const data = await result.json()
-  console.log(data)
   //if success, redirect user and set cookie
-  if (data.token){
-    document.cookie = `token=${data.token}`
-    window.location.href = `${host}/mainpage`
-  } else{
+  if (data.message === 'User created') {
+    window.location.href = `${loginhost}/mainpage`
+  } else {
     document.getElementById('error').innerText = data.message
   }
 
 }
 
-async function logout() {
-  document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
-  window.location.href = `${host}/`
-}
+// async function logout() {
+//   document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
+//   window.location.href = `${loginhost}/`
+// }

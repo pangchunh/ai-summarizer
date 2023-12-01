@@ -1,3 +1,8 @@
+require('dotenv').config()
+const db = require('pg-promise')()(process.env.DATABASE_URL);
+const jwt = require('jsonwebtoken')
+
+
 const authenicateAdmin = async (req, res, next) => {
   const { token } = req.cookies
   if (!token) {
@@ -15,6 +20,7 @@ const authenicateAdmin = async (req, res, next) => {
     }
     next()
   } catch (error) {
+    console.log(error)
     return res.redirect('/')
   }
 }
@@ -46,14 +52,11 @@ const authenicateAPI = async (req, res, next) => {
     res.status = 401
     return res.json({ "message": "No token provided" })
   }
-  console.log(`authheader: ${authHeader}`)
   const token = authHeader.split(' ')[1]
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
-    console.log(decoded)
     const { uid } = decoded
-    console.log(`uid: ${uid}`)
     const user = await db.oneOrNone(`select * from "user" where uid = '${uid}'`)
     if (!user) {
       res.status = 401

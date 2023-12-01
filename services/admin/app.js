@@ -8,13 +8,18 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const path = require('path');
 const cookieParser = require('cookie-parser')
+const { authenicateAdmin } = require('../middleware/authenicate')
+const { countApiCalls } = require('../middleware/countApiCalls')
+const { allowCors } = require('../middleware/cors')
 
-app.use(express.json(), cors(), cookieParser())
+
+app.use(express.json(), cookieParser())
+app.use(allowCors)
 app.use(express.static(path.join(__dirname, '../../frontend/public')))
 
 //
 
-app.get('/api/v1/apistat', async (req, res) => {
+app.get('/api/v1/apistat', countApiCalls, authenicateAdmin, async (req, res) => {
   //get all api routes stat from the apistat table
   const data = await db.any(`select * from apistat`)
   res.status = 200
@@ -22,7 +27,7 @@ app.get('/api/v1/apistat', async (req, res) => {
   res.json({ data, message })
 })
 
-app.get('/api/v1/userstat', async (req, res) => {
+app.get('/api/v1/userstat', countApiCalls, authenicateAdmin, async (req, res) => {
   //get all user routes stat from the userstat table
   try{
     const data = await db.any(`select * from userstat`)
@@ -37,7 +42,7 @@ app.get('/api/v1/userstat', async (req, res) => {
 
   } catch(err){
     res.status = 500
-    const message = "Error retrieving user stats"
+    const message = `Error retrieving user stats ${err}`
     res.json({ message })
   }
 })
@@ -46,6 +51,44 @@ app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 }
 );
+
+app.put("/api/v1/update-user", countApiCalls, authenicateAdmin, async (req, res) => {
+
+  const { uid, max_count, username, email } = req.body
+  try {
+
+    if (max_count && parseInt(max_count)) {
+      const new_max_count = parseInt(max_count)
+      await db.none(`update userstat set max_count = ${new_max_count} where uid = '${uid}'`)
+    }
+    if (username) {
+      await db.none(`update "user" set username = '${username}' where uid = '${uid}'`)
+    }
+    if (email) {
+      await db.none(`update "user" set email = '${email}' where uid = '${uid}'`)
+    }
+    res.status = 200
+    res.json({ "message": "User updated" })
+  } catch (error) {
+    console.log(error)
+    res.status = 500
+    res.json({ "message": `Error updating user ${error}` })
+  }
+}
+)
+
+app.delete("/api/v1/delete-user", countApiCalls, authenicateAdmin, async (req, res) => {
+  const { uid } = req.body
+  try {
+    await db.none(`delete from "user" where uid = '${uid}'`)
+    res.status = 200
+    res.json({ "message": "User deleted" })
+  } catch (error) {
+    res.status = 500
+    res.json({ "message": `Error deleting user ${error}` })
+  }
+}
+)
 
 // async function setDefaultApiCount(){
 //   //go to the 'user' table and grab all the user id, create a new row in the apistat table for each user id and set the count to 0

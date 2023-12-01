@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from transformers import pipeline
 from flask_cors import CORS  # Import CORS from flask_cors
 
-summarizer = pipeline("summarization", model="facebook/bart-base")
+summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
 app = Flask(__name__)
 
 CORS(app)
