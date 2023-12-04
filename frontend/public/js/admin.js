@@ -1,4 +1,6 @@
 const host = 'https://isa-ai-summarizer.onrender.com'
+// const host = 'http://localhost:3001'
+
 
 async function fetchApiStat() {
   try {
@@ -9,7 +11,6 @@ async function fetchApiStat() {
       },
       credentials: 'include'
     })
-    console.log(JSON.stringify(res))
 
     const { data } = await res.json()
 
@@ -47,7 +48,6 @@ async function fetchUserStat() {
         },
         credentials: 'include'
       })
-      console.log(JSON.stringify(res))
     const { users } = await res.json()
     const tableBody = document.getElementById('userStatTableBody')
     users.sort((a, b) => { return a.uid - b.uid })

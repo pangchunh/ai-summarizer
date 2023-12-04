@@ -1,5 +1,5 @@
 require('dotenv').config()
-const db = require('pg-promise')()(process.env.DATABASE_URL);
+const {db} = require('../db/db')
 const jwt = require('jsonwebtoken')
 
 const countApiCalls = async (req, res, next) => {

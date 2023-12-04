@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require('cors')
 const app = express();
 const PORT = process.env.PORT || 3001;
-const db = require('pg-promise')()(process.env.DATABASE_URL);
+const {db} = require('../db/db')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const path = require('path');
@@ -12,7 +12,8 @@ const { authenicatePage, authenicateAdmin } = require('../middleware/authenicate
 const { countApiCalls, countMlApiCall } = require('../middleware/countApiCalls')
 const { allowCors } = require('../middleware/cors')
 // const mlhost = process.env.ML_HOST || 'https://547b-99-199-61-101.ngrok-free.app/'
-const mlhost = 'http://127.0.0.1:5000'
+const mlhost = "https://1e58-99-199-61-101.ngrok-free.app"
+
 
 app.use(express.json(), cookieParser(), allowCors)
 app.use(express.static(path.join(__dirname, '../../frontend/public')))
@@ -92,8 +93,7 @@ app.post("/api/v1/summarize", countApiCalls, authenicatePage, async (req, res) =
     if (role !== 'admin') {
       const { count, max_count } = await db.one(`select count, max_count from userstat where uid = '${uid}'`)
       if (count >= max_count) {
-        res.status = 401
-        return res.json({ "message": "Max API calls reached, please contact admin to increase limit" })
+        return res.status(401).json({ "message": "Max API calls reached, please contact admin to increase limit" })
       }
       await db.none(`update userstat set count = ${count + 1} where uid = '${uid}'`)
     }
@@ -105,12 +105,11 @@ app.post("/api/v1/summarize", countApiCalls, authenicatePage, async (req, res) =
       body: JSON.stringify({ paragraph })
     })
     const data = await result.json()
-    console.log(`data from ml server: ${JSON.stringify(data)}`)
     res.status = 200
     res.json({ data, "message": "Successfully Summarized text" })
   } catch (err) {
     res.status = 500
-    res.json({ "message": "Error summarizing text" })
+    res.json({ "message": `Error summarizing text: ${err}` })
   }
 })
 
