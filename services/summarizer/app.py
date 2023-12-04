@@ -5,10 +5,18 @@ from flask_cors import CORS  # Import CORS from flask_cors
 summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
 app = Flask(__name__)
 
-CORS(app)
+# CORS(app)
+cors_config = {
+    "origins": ["http://127.0.0.1:5500", "https://isa-ai-summarizer.onrender.com"],
+    "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    "allow_headers": ["Content-Type", "Authorization"],
+    "supports_credentials": True
+}
+CORS(app, resources={r"/api/v1/*": cors_config})
 
 @app.route('/api/v1/summarize', methods=['GET', 'POST'])  # Allow both GET and POST requests
 def analyse():
+    print("test")
     if request.method == 'POST':
         data = request.get_json()
         
