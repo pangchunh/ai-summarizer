@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
 from transformers import pipeline
 from flask_cors import CORS  # Import CORS from flask_cors
+from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 
-summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
+model = AutoModelForSeq2SeqLM.from_pretrained('c:/Users/belal/Desktop/ai-summarizer/summarizer1')
+tokenizer = AutoTokenizer.from_pretrained('c:/Users/belal/Desktop/ai-summarizer/summarizer1')
 app = Flask(__name__)
 
 # CORS(app)
@@ -13,6 +15,11 @@ cors_config = {
     "supports_credentials": True
 }
 CORS(app, resources={r"/api/v1/*": cors_config})
+
+def summarize(text):
+    inputs = tokenizer.encode("summarize: " + text, return_tensors="pt", max_length=2048, truncation=True)
+    summary_ids = model.generate(inputs, max_length=150, min_length=40, length_penalty=2.0, num_beams=4, early_stopping=True)
+    return tokenizer.decode(summary_ids[0], skip_special_tokens=True)
 
 @app.route('/api/v1/summarize', methods=['GET', 'POST'])  # Allow both GET and POST requests
 def analyse():
@@ -28,8 +35,9 @@ def analyse():
         print(paragraph)
 
         if paragraph:
-            result = summarizer(paragraph, max_length=130, min_length=30, do_sample=False)
-            return jsonify({'summary': result[0]['summary_text']})
+            result = summarize(paragraph)
+            print(result)
+            return jsonify({'summary': result})
         else:
             return jsonify({'error': 'Missing paragraph data'}), 400
     else:
