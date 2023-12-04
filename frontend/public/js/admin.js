@@ -1,5 +1,5 @@
-// const host = 'https://isa-ai-summarizer.onrender.com'
-const host = 'http://localhost:3001'
+const host = 'https://isa-ai-summarizer.onrender.com'
+// const host = 'http://localhost:3001'
 
 
 async function fetchApiStat() {
@@ -50,7 +50,6 @@ async function fetchUserStat() {
       })
     const { users } = await res.json()
     const tableBody = document.getElementById('userStatTableBody')
-    users.sort((a, b) => { return a.uid - b.uid })
     users.forEach(user => {
       const tableRow = displayUserStat(user)
       tableBody.appendChild(tableRow)
@@ -144,7 +143,7 @@ async function editUser(uid, oldUsername, oldEmail, oldMaxCount) {
 }
 
 async function deleteUser(uid) {
-  const result = await fetch(`${host}/api/v1/delete-user`, {
+  const result = await fetch(`${host}/api/v1/delete-user?uid=${uid}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
