@@ -1,0 +1,604 @@
+openapi: 3.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/CPANG26/Text-Summarizer/1.0.0
+info:
+  description: This is a full web api for AI summarizer
+  version: "1.0.0"
+  title: AI summarizer API
+  contact:
+    email: peterpang1103@gmail.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: admins
+    description: Secured Admin-only calls
+  - name: users
+    description: Operations available to regular logged-in users
+paths:
+  /:
+    get:
+      summary: Get Login Page
+      description: Retrieve the login page HTML file.
+      tags:
+        - Login Page
+      responses:
+        '200':
+          description: Successful response
+          content:
+            text/html:
+              schema:
+                type: string
+                format: binary
+      x-middleware:
+        - countApiCalls
+  /mainpage:
+    get:
+      summary: Get Main Page
+      description: Retrieve the main page HTML file.
+      tags:
+        - users # Define your security requirements if any
+      responses:
+        '200':
+          description: Successful response
+          content:
+            text/html:
+              schema:
+                type: string
+                format: binary
+      x-middleware:
+        - authenicatePage
+        - countApiCalls
+  /admin:
+    get:
+      summary: Get Admin Page
+      description: Retrieve the admin page HTML file.
+      tags:
+        - admins
+      responses:
+        '200':
+          description: Successful response
+          content:
+            text/html:
+              schema:
+                type: string
+                format: binary
+      x-middleware:
+        - authenicateAdmin
+        - countApiCalls
+  /api/v1/login:
+    post:
+      summary: User Login
+      description: Authenticate a user and generate an access token.
+      tags:
+        - Login Page
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: The username of the user.
+                password:
+                  type: string
+                  description: The password of the user.
+              required:
+                - username
+                - password
+      responses:
+        '200':
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: A success message.
+                  user:
+                    type: object
+                    description: User information.
+                    properties:
+                      uid:
+                        type: string
+                        description: The unique identifier of the user.
+                  token:
+                    type: string
+                    description: The JWT token.
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error message for unauthorized access.
+      x-middleware:
+        - countApiCalls
+  /api/v1/create-user:
+    post:
+      summary: Create User
+      description: Create a new user and generate an access token.
+      tags:
+        - Login Page
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: The username of the user.
+                email:
+                  type: string
+                  format: email
+                  description: The email address of the user.
+                password:
+                  type: string
+                  description: The password of the user.
+              required:
+                - username
+                - email
+                - password
+      responses:
+        '201':
+          description: User created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: A success message.
+                  newUser:
+                    type: object
+                    description: User information.
+                    properties:
+                      uid:
+                        type: string
+                        description: The unique identifier of the user.
+                  token:
+                    type: string
+                    description: The JWT token.
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error message for unauthorized access.
+      x-middleware:
+        - countApiCalls
+  /api/v1/summarize:
+    post:
+      summary: Summarize Text
+      description: Summarize a paragraph of text using a machine learning server.
+      tags:
+        - users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                paragraph:
+                  type: string
+                  description: The paragraph to be summarized.
+              required:
+                - paragraph
+      responses:
+        '200':
+          description: Successful text summarization
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    description: The summarized data.
+                  message:
+                    type: string
+                    description: A success message.
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error message for unauthorized access.
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error message for internal server error.
+      x-middleware:
+        - countApiCalls
+        - authenicatePage
+  /api/v1/get-user-api-count:
+    get:
+      summary: Get User API Count
+      description: Retrieve the API count and maximum allowed count for the user.
+      tags:
+        - users
+      responses:
+        '200':
+          description: Successful retrieval of user API count
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    description: The user's API count and maximum allowed count.
+                  message:
+                    type: string
+                    description: A success message.
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error message for unauthorized access.
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error message for internal server error.
+      x-middleware:
+        - countApiCalls
+        - authenicatePage
+  /api/v1/signout:
+    get:
+      summary: Sign Out
+      description: Sign out the user by clearing the authentication token.
+      tags:
+        - users
+      responses:
+        '302':
+          description: Successful sign-out
+          headers:
+            Set-Cookie:
+              description: Clear the authentication token cookie.
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error message for internal server error.
+      x-middleware:
+        - countApiCalls
+  /api/v1/apistat:
+    get:
+      summary: Get API Stats
+      description: Retrieve statistics for all API routes.
+      tags:
+        - admins
+      responses:
+        '200':
+          description: Successful retrieval of API stats
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      description: API route statistics.
+                  message:
+                    type: string
+                    description: A success message.
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error message for unauthorized access.
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error message for internal server error.
+      x-middleware:
+        - countApiCalls
+        - authenicateAdmin
+  /api/v1/userstat:
+    get:
+      summary: Get User Stats
+      description: Retrieve statistics for all users.
+      tags:
+        - admins
+      responses:
+        '200':
+          description: Successful retrieval of user stats
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    type: array
+                    items:
+                      type: object
+                      description: User statistics including username and email.
+                  message:
+                    type: string
+                    description: A success message.
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error message for unauthorized access.
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error message for internal server error.
+      x-middleware:
+        - countApiCalls
+        - authenicateAdmin
+  /api/v1/update-user:
+    put:
+      summary: Update User
+      description: Update user information including max_count, username, and email.
+      tags:
+        - admins
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uid:
+                  type: string
+                  description: The unique identifier of the user.
+                max_count:
+                  type: integer
+                  description: The new maximum allowed API count for the user.
+                username:
+                  type: string
+                  description: The new username for the user.
+                email:
+                  type: string
+                  format: email
+                  description: The new email address for the user.
+              required:
+                - uid
+      responses:
+        '200':
+          description: Successful user update
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: A success message.
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error message for unauthorized access.
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error message for internal server error.
+      x-middleware:
+        - countApiCalls
+        - authenicateAdmin
+  /api/v1/delete-user:
+    delete:
+      summary: Delete User
+      description: Delete a user based on the provided uid using query parameters.
+      tags:
+        - admins
+      parameters:
+        - name: uid
+          in: query
+          description: The unique identifier of the user to be deleted.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful user deletion
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: A success message.
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error message for unauthorized access.
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error message for internal server error.
+      x-middleware:
+        - countApiCalls
+        - authenicateAdmin
+  /{}:
+    get:
+      summary: Catch-All Route
+      description: Catch-all route for handling 404 errors.
+      responses:
+        '404':
+          description: Resource Not Found
+          content:
+            text/html:
+              schema:
+                type: string
+                format: binary
+      x-middleware:
+        - 404Handler
+components:
+  x-middleware:
+    authenticateAdmin:
+      summary: Authenticate Admin User
+      description: Authenticate users with the 'admin' role based on JWT token.
+      parameters:
+        - name: Authorization
+          in: header
+          description: JWT token for authentication.
+          required: true
+          schema:
+            type: string
+            format: jwt
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            text/html:
+              schema:
+                type: string
+                format: binary
+        '500':
+          description: Internal Server Error
+          content:
+            text/html:
+              schema:
+                type: string
+                format: binary
+    authenticatePage:
+      summary: Authenticate User for Page Access
+      description: Authenticate users based on JWT token for accessing specific pages.
+      parameters:
+        - name: Authorization
+          in: header
+          description: JWT token for authentication.
+          required: true
+          schema:
+            type: string
+            format: jwt
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            text/html:
+              schema:
+                type: string
+                format: binary
+        '500':
+          description: Internal Server Error
+          content:
+            text/html:
+              schema:
+                type: string
+                format: binary
+    countApiCalls:
+      summary: Count API Calls
+      description: Middleware to count the number of API calls to different routes and methods.
+      parameters:
+        - name: route
+          in: path
+          description: The API route being accessed.
+          required: true
+          schema:
+            type: string
+        - name: method
+          in: query
+          description: The HTTP method used for the API call.
+          required: true
+          schema:
+            type: string
+      responses:
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error message for internal server error.
+    

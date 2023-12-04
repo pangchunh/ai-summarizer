@@ -34,6 +34,10 @@ app.get("/admin", authenicateAdmin, countApiCalls, (req, res) => {
   res.sendFile(path.join(__dirname, "../../frontend/public/html/admin.html"))
 })
 
+app.get("/api/v1/docs", countApiCalls, (req, res) => {
+  res.sendFile(path.join(__dirname, "../../frontend/public/html/docs.html"))
+})
+
 app.post("/api/v1/login", countApiCalls, async (req, res) => {
   const { username, password } = req.body
 
@@ -76,6 +80,10 @@ app.post("/api/v1/create-user", countApiCalls, async (req, res) => {
   } catch (error) {
     res.send(error)
   }
+})
+
+app.get("get-api-doc", countApiCalls, (req, res) => {
+  res.sendFile(path.join(__dirname, "../../frontend/public/html/apidocs.html"))
 })
 
 app.post("/api/v1/summarize", countApiCalls, authenicatePage, async (req, res) => {

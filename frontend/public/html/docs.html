@@ -1,0 +1,961 @@
+<!doctype html>
+<html>
+  <head>
+    <title>AI summarizer API</title>
+    <style type="text/css">
+      body {
+      	font-family: Trebuchet MS, sans-serif;
+      	font-size: 15px;
+      	color: #444;
+      	margin-right: 24px;
+      }
+      
+      h1	{
+      	font-size: 25px;
+      }
+      h2	{
+      	font-size: 20px;
+      }
+      h3	{
+      	font-size: 16px;
+      	font-weight: bold;
+      }
+      hr	{
+      	height: 1px;
+      	border: 0;
+      	color: #ddd;
+      	background-color: #ddd;
+      }
+      
+      .app-desc {
+        clear: both;
+        margin-left: 20px;
+      }
+      .param-name {
+        width: 100%;
+      }
+      .license-info {
+        margin-left: 20px;
+      }
+      
+      .license-url {
+        margin-left: 20px;
+      }
+      
+      .model {
+        margin: 0 0 0px 20px;
+      }
+      
+      .method {
+        margin-left: 20px;
+      }
+      
+      .method-notes	{
+      	margin: 10px 0 20px 0;
+      	font-size: 90%;
+      	color: #555;
+      }
+      
+      pre {
+        padding: 10px;
+        margin-bottom: 2px;
+      }
+      
+      .http-method {
+       text-transform: uppercase;
+      }
+      
+      pre.get {
+        background-color: #0f6ab4;
+      }
+      
+      pre.post {
+        background-color: #10a54a;
+      }
+      
+      pre.put {
+        background-color: #c5862b;
+      }
+      
+      pre.delete {
+        background-color: #a41e22;
+      }
+      
+      .huge	{
+      	color: #fff;
+      }
+      
+      pre.example {
+        background-color: #f3f3f3;
+        padding: 10px;
+        border: 1px solid #ddd;
+      }
+      
+      code {
+        white-space: pre;
+      }
+      
+      .nickname {
+        font-weight: bold;
+      }
+      
+      .method-path {
+        font-size: 1.5em;
+        background-color: #0f6ab4;
+      }
+      
+      .up {
+        float:right;
+      }
+      
+      .parameter {
+        width: 500px;
+      }
+      
+      .param {
+        width: 500px;
+        padding: 10px 0 0 20px;
+        font-weight: bold;
+      }
+      
+      .param-desc {
+        width: 700px;
+        padding: 0 0 0 20px;
+        color: #777;
+      }
+      
+      .param-type {
+        font-style: italic;
+      }
+      
+      .param-enum-header {
+      width: 700px;
+      padding: 0 0 0 60px;
+      color: #777;
+      font-weight: bold;
+      }
+      
+      .param-enum {
+      width: 700px;
+      padding: 0 0 0 80px;
+      color: #777;
+      font-style: italic;
+      }
+      
+      .field-label {
+        padding: 0;
+        margin: 0;
+        clear: both;
+      }
+      
+      .field-items	{
+      	padding: 0 0 15px 0;
+      	margin-bottom: 15px;
+      }
+      
+      .return-type {
+        clear: both;
+        padding-bottom: 10px;
+      }
+      
+      .param-header {
+        font-weight: bold;
+      }
+      
+      .method-tags {
+        text-align: right;
+      }
+      
+      .method-tag {
+        background: none repeat scroll 0% 0% #24A600;
+        border-radius: 3px;
+        padding: 2px 10px;
+        margin: 2px;
+        color: #FFF;
+        display: inline-block;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+  <h1>AI summarizer API</h1>
+    <div class="app-desc">This is a full web api for AI summarizer</div>
+    <div class="app-desc">More information: <a href="https://helloreverb.com">https://helloreverb.com</a></div>
+    <div class="app-desc">Contact Info: <a href="peterpang1103@gmail.com">peterpang1103@gmail.com</a></div>
+    <div class="app-desc">Version: 1.0.0</div>
+    <div class="app-desc">BasePath:/CPANG26/Text-Summarizer/1.0.0</div>
+    <div class="license-info">Apache 2.0</div>
+    <div class="license-url">http://www.apache.org/licenses/LICENSE-2.0.html</div>
+  <h2>Access</h2>
+
+  <h2><a name="__Methods">Methods</a></h2>
+  [ Jump to <a href="#__Models">Models</a> ]
+
+  <h3>Table of Contents </h3>
+  <div class="method-summary"></div>
+  <h4><a href="#Admins">Admins</a></h4>
+  <ul>
+  <li><a href="#adminGet"><code><span class="http-method">get</span> /admin</code></a></li>
+  <li><a href="#apiV1ApistatGet"><code><span class="http-method">get</span> /api/v1/apistat</code></a></li>
+  <li><a href="#apiV1DeleteUserDelete"><code><span class="http-method">delete</span> /api/v1/delete-user</code></a></li>
+  <li><a href="#apiV1UpdateUserPut"><code><span class="http-method">put</span> /api/v1/update-user</code></a></li>
+  <li><a href="#apiV1UserstatGet"><code><span class="http-method">get</span> /api/v1/userstat</code></a></li>
+  </ul>
+  <h4><a href="#Default">Default</a></h4>
+  <ul>
+  <li><a href="#rootGet"><code><span class="http-method">get</span> /{}</code></a></li>
+  </ul>
+  <h4><a href="#LoginPage">LoginPage</a></h4>
+  <ul>
+  <li><a href="#apiV1CreateUserPost"><code><span class="http-method">post</span> /api/v1/create-user</code></a></li>
+  <li><a href="#apiV1LoginPost"><code><span class="http-method">post</span> /api/v1/login</code></a></li>
+  <li><a href="#rootGet"><code><span class="http-method">get</span> /</code></a></li>
+  </ul>
+  <h4><a href="#Users">Users</a></h4>
+  <ul>
+  <li><a href="#apiV1GetUserApiCountGet"><code><span class="http-method">get</span> /api/v1/get-user-api-count</code></a></li>
+  <li><a href="#apiV1SignoutGet"><code><span class="http-method">get</span> /api/v1/signout</code></a></li>
+  <li><a href="#apiV1SummarizePost"><code><span class="http-method">post</span> /api/v1/summarize</code></a></li>
+  <li><a href="#mainpageGet"><code><span class="http-method">get</span> /mainpage</code></a></li>
+  </ul>
+
+  <h1><a name="Admins">Admins</a></h1>
+  <div class="method"><a name="adminGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /admin</code></pre></div>
+    <div class="method-summary">Get Admin Page (<span class="nickname">adminGet</span>)</div>
+    <div class="method-notes">Retrieve the admin page HTML file.</div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      byte[]
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>""</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>text/html</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful response
+        <a href="#byte[]">byte[]</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="apiV1ApistatGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/v1/apistat</code></pre></div>
+    <div class="method-summary">Get API Stats (<span class="nickname">apiV1ApistatGet</span>)</div>
+    <div class="method-notes">Retrieve statistics for all API routes.</div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#inline_response_200_3">inline_response_200_3</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "data" : [ { }, { } ],
+  "message" : "message"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful retrieval of API stats
+        <a href="#inline_response_200_3">inline_response_200_3</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#inline_response_401">inline_response_401</a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error
+        <a href="#inline_response_500">inline_response_500</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="apiV1DeleteUserDelete"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /api/v1/delete-user</code></pre></div>
+    <div class="method-summary">Delete User (<span class="nickname">apiV1DeleteUserDelete</span>)</div>
+    <div class="method-notes">Delete a user based on the provided uid using query parameters.</div>
+
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">uid (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; The unique identifier of the user to be deleted. </div>    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#inline_response_200_5">inline_response_200_5</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "message" : "message"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful user deletion
+        <a href="#inline_response_200_5">inline_response_200_5</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#inline_response_401">inline_response_401</a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error
+        <a href="#inline_response_500">inline_response_500</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="apiV1UpdateUserPut"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /api/v1/update-user</code></pre></div>
+    <div class="method-summary">Update User (<span class="nickname">apiV1UpdateUserPut</span>)</div>
+    <div class="method-notes">Update user information including max_count, username, and email.</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#v1_updateuser_body">v1_updateuser_body</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#inline_response_200_5">inline_response_200_5</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "message" : "message"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful user update
+        <a href="#inline_response_200_5">inline_response_200_5</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#inline_response_401">inline_response_401</a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error
+        <a href="#inline_response_500">inline_response_500</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="apiV1UserstatGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/v1/userstat</code></pre></div>
+    <div class="method-summary">Get User Stats (<span class="nickname">apiV1UserstatGet</span>)</div>
+    <div class="method-notes">Retrieve statistics for all users.</div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#inline_response_200_4">inline_response_200_4</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "message" : "message",
+  "users" : [ { }, { } ]
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful retrieval of user stats
+        <a href="#inline_response_200_4">inline_response_200_4</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#inline_response_401">inline_response_401</a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error
+        <a href="#inline_response_500">inline_response_500</a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Default">Default</a></h1>
+  <div class="method"><a name="rootGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /{}</code></pre></div>
+    <div class="method-summary">Catch-All Route (<span class="nickname">rootGet</span>)</div>
+    <div class="method-notes">Catch-all route for handling 404 errors.</div>
+
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>text/html</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">404</h4>
+    Resource Not Found
+        <a href="#byte[]">byte[]</a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="LoginPage">LoginPage</a></h1>
+  <div class="method"><a name="apiV1CreateUserPost"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /api/v1/create-user</code></pre></div>
+    <div class="method-summary">Create User (<span class="nickname">apiV1CreateUserPost</span>)</div>
+    <div class="method-notes">Create a new user and generate an access token.</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#v1_createuser_body">v1_createuser_body</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#inline_response_201">inline_response_201</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "newUser" : {
+    "uid" : "uid"
+  },
+  "message" : "message",
+  "token" : "token"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    User created
+        <a href="#inline_response_201">inline_response_201</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#inline_response_401">inline_response_401</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="apiV1LoginPost"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /api/v1/login</code></pre></div>
+    <div class="method-summary">User Login (<span class="nickname">apiV1LoginPost</span>)</div>
+    <div class="method-notes">Authenticate a user and generate an access token.</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#v1_login_body">v1_login_body</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#inline_response_200">inline_response_200</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "message" : "message",
+  "user" : {
+    "uid" : "uid"
+  },
+  "token" : "token"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful login
+        <a href="#inline_response_200">inline_response_200</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#inline_response_401">inline_response_401</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="rootGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /</code></pre></div>
+    <div class="method-summary">Get Login Page (<span class="nickname">rootGet</span>)</div>
+    <div class="method-notes">Retrieve the login page HTML file.</div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      byte[]
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>""</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>text/html</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful response
+        <a href="#byte[]">byte[]</a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Users">Users</a></h1>
+  <div class="method"><a name="apiV1GetUserApiCountGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/v1/get-user-api-count</code></pre></div>
+    <div class="method-summary">Get User API Count (<span class="nickname">apiV1GetUserApiCountGet</span>)</div>
+    <div class="method-notes">Retrieve the API count and maximum allowed count for the user.</div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#inline_response_200_2">inline_response_200_2</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "data" : { },
+  "message" : "message"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful retrieval of user API count
+        <a href="#inline_response_200_2">inline_response_200_2</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#inline_response_401">inline_response_401</a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error
+        <a href="#inline_response_500">inline_response_500</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="apiV1SignoutGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/v1/signout</code></pre></div>
+    <div class="method-summary">Sign Out (<span class="nickname">apiV1SignoutGet</span>)</div>
+    <div class="method-notes">Sign out the user by clearing the authentication token.</div>
+
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">302</h4>
+    Successful sign-out
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error
+        <a href="#inline_response_500">inline_response_500</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="apiV1SummarizePost"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /api/v1/summarize</code></pre></div>
+    <div class="method-summary">Summarize Text (<span class="nickname">apiV1SummarizePost</span>)</div>
+    <div class="method-notes">Summarize a paragraph of text using a machine learning server.</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#v1_summarize_body">v1_summarize_body</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#inline_response_200_1">inline_response_200_1</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "data" : { },
+  "message" : "message"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful text summarization
+        <a href="#inline_response_200_1">inline_response_200_1</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#inline_response_401">inline_response_401</a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error
+        <a href="#inline_response_500">inline_response_500</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="mainpageGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /mainpage</code></pre></div>
+    <div class="method-summary">Get Main Page (<span class="nickname">mainpageGet</span>)</div>
+    <div class="method-notes">Retrieve the main page HTML file.</div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      byte[]
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>""</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>text/html</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful response
+        <a href="#byte[]">byte[]</a>
+  </div> <!-- method -->
+  <hr/>
+
+  <h2><a name="__Models">Models</a></h2>
+  [ Jump to <a href="#__Methods">Methods</a> ]
+
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#inline_response_200"><code>inline_response_200</code></a></li>
+    <li><a href="#inline_response_200_1"><code>inline_response_200_1</code></a></li>
+    <li><a href="#inline_response_200_2"><code>inline_response_200_2</code></a></li>
+    <li><a href="#inline_response_200_3"><code>inline_response_200_3</code></a></li>
+    <li><a href="#inline_response_200_4"><code>inline_response_200_4</code></a></li>
+    <li><a href="#inline_response_200_5"><code>inline_response_200_5</code></a></li>
+    <li><a href="#inline_response_201"><code>inline_response_201</code></a></li>
+    <li><a href="#inline_response_201_newUser"><code>inline_response_201_newUser</code></a></li>
+    <li><a href="#inline_response_401"><code>inline_response_401</code></a></li>
+    <li><a href="#inline_response_500"><code>inline_response_500</code></a></li>
+    <li><a href="#v1_createuser_body"><code>v1_createuser_body</code></a></li>
+    <li><a href="#v1_login_body"><code>v1_login_body</code></a></li>
+    <li><a href="#v1_summarize_body"><code>v1_summarize_body</code></a></li>
+    <li><a href="#v1_updateuser_body"><code>v1_updateuser_body</code></a></li>
+  </ol>
+
+  <div class="model">
+    <h3><a name="inline_response_200"><code>inline_response_200</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">message (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> A success message. </div>
+<div class="param">user (optional)</div><div class="param-desc"><span class="param-type"><a href="#inline_response_201_newUser">inline_response_201_newUser</a></span>  </div>
+<div class="param">token (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The JWT token. </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="inline_response_200_1"><code>inline_response_200_1</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">data (optional)</div><div class="param-desc"><span class="param-type"><a href="#object">Object</a></span> The summarized data. </div>
+<div class="param">message (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> A success message. </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="inline_response_200_2"><code>inline_response_200_2</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">data (optional)</div><div class="param-desc"><span class="param-type"><a href="#object">Object</a></span> The user&#x27;s API count and maximum allowed count. </div>
+<div class="param">message (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> A success message. </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="inline_response_200_3"><code>inline_response_200_3</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">data (optional)</div><div class="param-desc"><span class="param-type"><a href="#object">array[Object]</a></span>  </div>
+<div class="param">message (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> A success message. </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="inline_response_200_4"><code>inline_response_200_4</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">users (optional)</div><div class="param-desc"><span class="param-type"><a href="#object">array[Object]</a></span>  </div>
+<div class="param">message (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> A success message. </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="inline_response_200_5"><code>inline_response_200_5</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">message (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> A success message. </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="inline_response_201"><code>inline_response_201</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">message (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> A success message. </div>
+<div class="param">newUser (optional)</div><div class="param-desc"><span class="param-type"><a href="#inline_response_201_newUser">inline_response_201_newUser</a></span>  </div>
+<div class="param">token (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The JWT token. </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="inline_response_201_newUser"><code>inline_response_201_newUser</code></a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>User information.</div>
+    <div class="field-items">
+      <div class="param">uid (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The unique identifier of the user. </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="inline_response_401"><code>inline_response_401</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">message (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Error message for unauthorized access. </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="inline_response_500"><code>inline_response_500</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">message (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Error message for internal server error. </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="v1_createuser_body"><code>v1_createuser_body</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">username </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The username of the user. </div>
+<div class="param">email </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The email address of the user. format: email</div>
+<div class="param">password </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The password of the user. </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="v1_login_body"><code>v1_login_body</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">username </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The username of the user. </div>
+<div class="param">password </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The password of the user. </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="v1_summarize_body"><code>v1_summarize_body</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">paragraph </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The paragraph to be summarized. </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="v1_updateuser_body"><code>v1_updateuser_body</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">uid </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The unique identifier of the user. </div>
+<div class="param">max_count (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> The new maximum allowed API count for the user. </div>
+<div class="param">username (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The new username for the user. </div>
+<div class="param">email (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The new email address for the user. format: email</div>
+    </div>  <!-- field-items -->
+  </div>
+  </body>
+</html>
