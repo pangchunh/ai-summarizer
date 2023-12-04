@@ -2,7 +2,7 @@ require('dotenv').config()
 const express = require("express");
 const cors = require('cors')
 const app = express();
-const fetch = require('node-fetch')
+const axios = require('axios')
 const PORT = process.env.PORT || 3001;
 const {db} = require('../db/db')
 const bcrypt = require('bcrypt')
@@ -11,7 +11,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser')
 const { authenicatePage, authenicateAdmin } = require('../middleware/authenicate')
 const { countApiCalls } = require('../middleware/countApiCalls')
-const { allowCors } = require('../middleware/cors')
+const { allowCors } = require('../middleware/cors');
 // const mlhost = process.env.ML_HOST || 'https://547b-99-199-61-101.ngrok-free.app/'
 const mlhost = "https://1e58-99-199-61-101.ngrok-free.app"
 
@@ -94,15 +94,12 @@ app.post("/api/v1/summarize", countApiCalls, authenicatePage, async (req, res) =
       await db.none(`update userstat set count = ${count + 1} where uid = '${uid}'`)
     }
     console.log("analyzing text in admin route, sending to ml server")
-    const result = await fetch(`${mlhost}/api/v1/summarize`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ paragraph })
-    })
+
+    const result = await axios.post(`${mlhost}/api/v1/summarize`, { paragraph }, 
+      )
+
     console.log("received result from ml server...")
-    const data = await result.json()
+    const {data} = result
     res.status(200).json({ data, "message": "Successfully Summarized text" })
   } catch (err) {
     res.status(500).json({ "message": `Error summarizing text: ${err}` })
