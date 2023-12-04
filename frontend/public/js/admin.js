@@ -1,5 +1,5 @@
-const host = 'https://isa-ai-summarizer.onrender.com'
-// const host = 'http://localhost:3001'
+// const host = 'https://isa-ai-summarizer.onrender.com'
+const host = 'http://localhost:3001'
 
 
 async function fetchApiStat() {

@@ -8,59 +8,64 @@
 
 <body class="min-h-full">
     <div class="">
-        <nav class="bg-gray-800 ">
+        <nav class="bg-gray-800">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div class="flex h-16 items-center justify-between">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <img class="h-8 w-8" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                                alt="Your Company">
-                        </div>
-                        <div class="hidden md:block">
-                            <div class="ml-10 flex items-baseline space-x-4">
-                                <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                                <!-- <a href="https://isa-ai-summarizer.onrender.com/admin"  -->
-                                <a href="https://isa-ai-summarizer.onrender.com/admin"
-                                    class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
-                                    aria-current="page">Dashboard</a>
-                                <a href="https://isa-ai-summarizer.onrender.com/mainpage"
-                                    class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">App</a>
-                            </div>
-                        </div>
+              <div class="flex h-16 items-center justify-between">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0">
+                    <img id="companyName" class="h-8 w-8" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                      alt="Your Company">
+                  </div>
+                  <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                      
+                      <a href="https://isa-ai-summarizer.onrender.com/admin"
+                      id="navDashboard"
+      
+                      class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
+                        aria-current="page"></a>
+                      <a href="https://isa-ai-summarizer.onrender.com/mainpage"
+                      id="navApp"
+                        class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"></a>
                     </div>
-                    <div class="hidden md:block">
-                        <div class="ml-4 flex items-center md:ml-6">
-                            <div class="relative ml-3">
-                                <!-- <a href="https://isa-ai-summarizer.onrender.com/api/v1/signout" -->
-                                <a href="https://isa-ai-summarizer.onrender.com/api/v1/signout"
-                                    class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Logout</a>
-                            </div>
-                        </div>
-                    </div>
+                  </div>
                 </div>
+                <div class="hidden md:block">
+                  <div class="ml-4 flex items-center md:ml-6">
+                    <div class="relative ml-3">
+                      <!-- <a href="https://isa-ai-summarizer.onrender.com/api/v1/signout" -->
+                        <a href="https://isa-ai-summarizer.onrender.com/api/v1/signout"
+                        id="navLogout"
+                        class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-
+      
             <!-- Mobile menu, show/hide based on menu state. -->
             <div class="md:hidden" id="mobile-menu">
-                <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-                    <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                    <a href="#" class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium"
-                        aria-current="page">Dashboard</a>
-                    <a href="#"
-                        class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">App</a>
-                    <a href="#"
-                        class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Logout</a>
-                </div>
+              <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+                <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                <a href="./admin" id="mobile-nav-dashboard" class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium"
+                  aria-current="page"></a>
+                <a href="./mainpage"
+                id="mobile-nav-app"
+                  class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"></a>
+                <a href="./api/v1/signout"
+                id="mobile-nav-logout"
+                  class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"></a>
+              </div>
             </div>
-        </nav>
+          </nav>
         <header class="bg-white shadow">
             <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                 <div class="md:flex md:items-center md:justify-between">
                     <div class="min-w-0 flex-1">
-                      <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">AI Summarizer</h2>
+                      <h2 id="appName" class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight"></h2>
                     </div>
                     <div class="mt-4 flex md:ml-4 md:mt-0">
-                      <button type="button" class="ml-3 inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Request API Limit</button>
+                      <button id="requestLimit" type="button" class="ml-3 inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"></button>
                     </div>
                   </div>
             </div>
@@ -70,15 +75,15 @@
                 <!-- user stat -->
                 <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
                     <div class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
-                      <dt class="truncate text-sm font-medium text-gray-500">Total API calls to date</dt>
+                      <dt id="totalCallInfo" class="truncate text-sm font-medium text-gray-500"></dt>
                       <dd id="apicalls" class="mt-1 text-3xl font-semibold tracking-tight text-gray-900"></dd>
                     </div>
                     <div class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
-                      <dt class="truncate text-sm font-medium text-gray-500">Your API Limit</dt>
+                      <dt id="userLimit" class="truncate text-sm font-medium text-gray-500"></dt>
                       <dd id="max-api-call" class="mt-1 text-3xl font-semibold tracking-tight text-gray-900"></dd>
                     </div>
                     <div class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
-                      <dt class="truncate text-sm font-medium text-gray-500">Percentage used</dt>
+                      <dt id="usagePercentage" class="truncate text-sm font-medium text-gray-500"></dt>
                       <dd id="remaining-call" class="mt-1 text-3xl font-semibold tracking-tight text-gray-900"></dd>
                     </div>
                   </dl>
@@ -90,9 +95,7 @@
 
 
                 <div class="mb-6">
-                    <label for="large-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter
-                        a
-                        paragraph to analyze:</label>
+                    <label id="analyzePrompt" for="large-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"></label>
                     <div class="mt-2">
                         <textarea rows="4" name="comment" id="inputText"
                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
@@ -107,8 +110,8 @@
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Analyze</button><br><br> -->
                 <br><br>
                 <div id="summaryContainer" class="mb-6" style="display: none;">
-                        <h1 class="text-3xl font-bold tracking-tight text-gray-900">Text Summary</h1>
-                        <p id="labelResult" class="mt-6 text-xl leading-8">Loris Placjkanc fhbkaabcb</p>
+                        <h1 id="summaryHeader" class="text-3xl font-bold tracking-tight text-gray-900"></h1>
+                        <p id="labelResult" class="mt-6 text-xl leading-8"></p>
                 </div>
                 <br><br><br>
             </div>
@@ -117,6 +120,8 @@
 
 
     <script src="../js/main.js"></script>
+    <script src="../string/navStrings.js"></script>
+    <script src="../string/mainStrings.js"></script>
 </body>
 
 </html>

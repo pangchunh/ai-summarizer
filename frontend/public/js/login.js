@@ -1,5 +1,5 @@
-const loginhost = 'https://isa-ai-summarizer.onrender.com'
-// const loginhost = 'http://localhost:3001'
+// const loginhost = 'https://isa-ai-summarizer.onrender.com'
+const loginhost = 'http://localhost:3001'
 
 let authToken = null; // Declare a global variable to store the token
 

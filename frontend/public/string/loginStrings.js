@@ -1,0 +1,21 @@
+const loginWelcome = 'Welcome to your AI summarizer'
+const signInPrompt = 'Sign in to you account'
+const username = 'User name'
+const password = 'Password'
+const email = 'Email address'
+const forgotPassword = 'Forgot password?'
+const signIn = 'Sign in'
+const registerLink = 'Register'
+const registerPrompt = 'Not a member yet?'
+
+document.getElementById('loginWelcome').innerText = loginWelcome
+document.getElementById('signInPrompt').innerText = signInPrompt
+document.getElementById('usernameLabel').innerText = username
+document.getElementById('passwordLabel').innerText = password
+document.getElementById('forgotPassword').innerText = forgotPassword
+document.getElementById('signIn').innerText = signIn
+document.getElementById('registerLink').innerText = registerLink
+document.getElementById('registerUserNameLabel').innerText = username
+document.getElementById('registerEmailLabel').innerText = email
+document.getElementById('registerPasswordLabel').innerText = password
+document.getElementById('registerButton').innerText = registerLink
