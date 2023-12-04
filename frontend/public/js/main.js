@@ -5,7 +5,6 @@ const summaryContainer = document.getElementById("summaryContainer");
 const host = "https://isa-ai-summarizer.onrender.com";
 // const host = "http://localhost:3001"
 // const ml_host = "https://1e58-99-199-61-101.ngrok-free.app"
-import fetch from 'node-fetch';
 
 analyzeButton.addEventListener("click", async (e) => {
 	e.preventDefault();
