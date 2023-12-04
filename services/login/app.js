@@ -92,6 +92,7 @@ app.post("/api/v1/summarize", countApiCalls, authenicatePage, async (req, res) =
       }
       await db.none(`update userstat set count = ${count + 1} where uid = '${uid}'`)
     }
+    console.log("analyzing text in admin route, sending to ml server")
     const result = await fetch(`${mlhost}/api/v1/summarize`, {
       method: 'POST',
       headers: {

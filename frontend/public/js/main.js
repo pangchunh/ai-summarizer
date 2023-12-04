@@ -13,15 +13,14 @@ analyzeButton.addEventListener("click", async () => {
 
 		// Send a POST request with the text as a query parameter
 		try{
-			const res = await fetch(
-				`${host}/api/v1/summarize`,
-				{
-					headers: { "Content-Type": "application/json" },
-					method: "POST",
-					body: JSON.stringify(body),
-					credentials: "include",
-				}
-			);
+			const res = await fetch(`${host}/api/v1/summarize`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ paragraph }),
+				credentials: 'include'
+			})
 			const data = await res.json();
 			if (res.status === 200) {
 				result.textContent = data.data.summary;
