@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken')
 const path = require('path');
 const cookieParser = require('cookie-parser')
 const { authenicatePage, authenicateAdmin } = require('../middleware/authenicate')
-const { countApiCalls, countMlApiCall } = require('../middleware/countApiCalls')
+const { countApiCalls } = require('../middleware/countApiCalls')
 const { allowCors } = require('../middleware/cors')
 // const mlhost = process.env.ML_HOST || 'https://547b-99-199-61-101.ngrok-free.app/'
 const mlhost = "https://1e58-99-199-61-101.ngrok-free.app"
@@ -40,20 +40,17 @@ app.post("/api/v1/login", countApiCalls, async (req, res) => {
     //retrieve user base on username
     const user = await db.oneOrNone(`select * from "user" where username like '${username}'`)
     if (!user) {
-      res.status = 401
-      return res.json({ "message": "User not find, please retry" })
+      return res.status(401).json({ "message": "User not find, please retry" })
     }
     const passwordMatch = await bcrypt.compare(password, user.password)
     if (!passwordMatch) {
-      res.status = 401
-      return res.json({ "message": "Password incorrect, please retry" })
+      return res.status(401).json({ "message": "Password incorrect, please retry" })
     }
     //create token with user id and send back to user
     const token = jwt.sign({ uid: user.uid }, process.env.JWT_SECRET)
 
-    res.status = 200
     res.cookie('token', token, { httpOnly: true })
-    res.json({ "message": "Login successful", user })
+    res.status(200).json({ "message": "Login successful", user })
 
   } catch (error) {
     res.send(error)
@@ -68,15 +65,13 @@ app.post("/api/v1/create-user", countApiCalls, async (req, res) => {
   try {
     const user = await db.oneOrNone(`select * from "user" where username like '${username}'`)
     if (user) {
-      res.status = 401
-      return res.json({ "message": "User already exists, please retry" })
+      return res.status(401).json({ "message": "User already exists, please retry" })
     }
     const newUser = await db.one(`insert into "user" (username, email, password) values ('${username}', '${email}', '${hashedPassword}') returning *`)
     await db.none(`insert into userstat (uid, count) values ('${newUser.uid}', 0)`)
     const token = jwt.sign({ uid: newUser.uid }, process.env.JWT_SECRET)
-    res.status = 201
     res.cookie('token', token, { httpOnly: true })
-    res.json({ "message": "User created", newUser })
+    res.status(201).json({ "message": "User created", newUser })
   } catch (error) {
     res.send(error)
   }
@@ -105,11 +100,9 @@ app.post("/api/v1/summarize", countApiCalls, authenicatePage, async (req, res) =
       body: JSON.stringify({ paragraph })
     })
     const data = await result.json()
-    res.status = 200
-    res.json({ data, "message": "Successfully Summarized text" })
+    res.status(200).json({ data, "message": "Successfully Summarized text" })
   } catch (err) {
-    res.status = 500
-    res.json({ "message": `Error summarizing text: ${err}` })
+    res.status(500).json({ "message": `Error summarizing text: ${err}` })
   }
 })
 
@@ -118,11 +111,9 @@ app.get("/api/v1/get-user-api-count", countApiCalls, authenicatePage, async (req
   const { uid } = jwt.verify(token, process.env.JWT_SECRET)
   try {
     const data = await db.one(`select count, max_count from userstat where uid = '${uid}'`)
-    res.status = 200
-    res.json({ data, "message": "Successfully retrieved user count" })
+    res.status(200).json({ data, "message": "Successfully retrieved user count" })
   } catch (err) {
-    res.status = 500
-    res.json({ "message": `Error retrieving user count ${err}` })
+    res.status(500).json({ "message": `Error retrieving user count ${err}` })
   }
 })
 
@@ -137,9 +128,8 @@ app.get("/api/v1/signout", countApiCalls, (req, res) => {
 app.get('/api/v1/apistat', countApiCalls, authenicateAdmin, async (req, res) => {
   //get all api routes stat from the apistat table
   const data = await db.any(`select * from apistat`)
-  res.status = 200
   const message = "All API stats retrieved"
-  res.json({ data, message })
+  res.status(200).json({ data, message })
 })
 
 app.get('/api/v1/userstat', countApiCalls, authenicateAdmin, async (req, res) => {
@@ -151,14 +141,12 @@ app.get('/api/v1/userstat', countApiCalls, authenicateAdmin, async (req, res) =>
       const { username, email } = await db.one(`select username,email from "user" where uid = '${uid}'`)
       return { ...user, username, email }
     }))
-    res.status = 200
     const message = "All user stats retrieved"
-    res.json({ users, message })
+    res.status(200).json({ users, message })
 
   } catch (err) {
-    res.status = 500
     const message = `Error retrieving user stats ${err}`
-    res.json({ message })
+    res.status(500).json({ message })
   }
 })
 
@@ -177,12 +165,10 @@ app.put("/api/v1/update-user", countApiCalls, authenicateAdmin, async (req, res)
     if (email) {
       await db.none(`update "user" set email = '${email}' where uid = '${uid}'`)
     }
-    res.status = 200
-    res.json({ "message": "User updated" })
+    res.status(200).json({ "message": "User updated" })
   } catch (error) {
     console.log(error)
-    res.status = 500
-    res.json({ "message": `Error updating user ${error}` })
+    res.status(500).json({ "message": `Error updating user ${error}` })
   }
 }
 )
@@ -191,11 +177,9 @@ app.delete("/api/v1/delete-user", countApiCalls, authenicateAdmin, async (req, r
   const { uid } = req.body
   try {
     await db.none(`delete from "user" where uid = '${uid}'`)
-    res.status = 200
-    res.json({ "message": "User deleted" })
+    res.status(200).json({ "message": "User deleted" })
   } catch (error) {
-    res.status = 500
-    res.json({ "message": `Error deleting user ${error}` })
+    res.status(500).json({ "message": `Error deleting user ${error}` })
   }
 }
 )
