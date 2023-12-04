@@ -3,8 +3,8 @@ from transformers import pipeline
 from flask_cors import CORS  # Import CORS from flask_cors
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 
-model = AutoModelForSeq2SeqLM.from_pretrained('c:/Users/belal/Desktop/ai-summarizer/summarizer1')
-tokenizer = AutoTokenizer.from_pretrained('c:/Users/belal/Desktop/ai-summarizer/summarizer1')
+model = AutoModelForSeq2SeqLM.from_pretrained('/')
+tokenizer = AutoTokenizer.from_pretrained('/')
 app = Flask(__name__)
 
 # CORS(app)
