@@ -4,6 +4,7 @@ const result = document.getElementById("labelResult");
 const summaryContainer = document.getElementById("summaryContainer");
 const host = "https://isa-ai-summarizer.onrender.com";
 // const host = "http://localhost:3001"
+const ml_host = "https://1e58-99-199-61-101.ngrok-free.app"
 
 analyzeButton.addEventListener("click", async () => {
 	const paragraph = inputText.value;
@@ -12,7 +13,7 @@ analyzeButton.addEventListener("click", async () => {
 
 		// Send a POST request with the text as a query parameter
 		const res = await fetch(
-			`${host}/api/v1/summarize`,
+			`${ml_host}/api/v1/summarize`,
 			{
 				headers: { "Content-Type": "application/json" },
 				method: "POST",
@@ -21,7 +22,7 @@ analyzeButton.addEventListener("click", async () => {
 			}
 		);
 		
-		const {data} = await res.json();
+		const data = await res.json();
 		result.textContent = data.summary;
 
 		// Unhide the summary container
