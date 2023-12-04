@@ -100,6 +100,7 @@ app.post("/api/v1/summarize", countApiCalls, authenicatePage, async (req, res) =
       },
       body: JSON.stringify({ paragraph })
     })
+    console.log("received result from ml server...")
     const data = await result.json()
     res.status(200).json({ data, "message": "Successfully Summarized text" })
   } catch (err) {

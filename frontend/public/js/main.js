@@ -6,7 +6,9 @@ const host = "https://isa-ai-summarizer.onrender.com";
 // const host = "http://localhost:3001"
 // const ml_host = "https://1e58-99-199-61-101.ngrok-free.app"
 
-analyzeButton.addEventListener("click", async () => {
+analyzeButton.addEventListener("click", async (e) => {
+	e.preventDefault();
+
 	const paragraph = inputText.value;
 	if (paragraph) {
 		const body = { paragraph };
