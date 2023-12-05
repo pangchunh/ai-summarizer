@@ -13,7 +13,7 @@ const { authenicatePage, authenicateAdmin } = require('../middleware/authenicate
 const { countApiCalls } = require('../middleware/countApiCalls')
 const { allowCors } = require('../middleware/cors');
 // const mlhost = process.env.ML_HOST || 'https://547b-99-199-61-101.ngrok-free.app/'
-const mlhost = 'https://ba5d-216-232-192-84.ngrok-free.app'
+const mlhost = 'https://bdaf-216-232-192-84.ngrok-free.app'
 
 
 app.use(express.json(), cookieParser(), allowCors)
